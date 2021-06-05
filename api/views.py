@@ -22,7 +22,7 @@ class PostViewSet(viewsets.ModelViewSet):
 
 class CommentViewSet(viewsets.ModelViewSet):
     serializer_class = CommentSerializer
-    permission_classes = (IsAuthorOrReadOnly,)
+    permission_classes = (IsAuthorOrReadOnly, permissions.IsAuthenticated,)
 
     def get_queryset(self):
         post = get_object_or_404(Post, id=self.kwargs['id'])
@@ -36,7 +36,7 @@ class CommentViewSet(viewsets.ModelViewSet):
 class ListAndCreateViewSet(mixins.ListModelMixin,
                            mixins.CreateModelMixin,
                            viewsets.GenericViewSet):
-    ...
+    pass
 
 
 class GroupViewSet(ListAndCreateViewSet):
